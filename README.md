@@ -15,10 +15,8 @@
      - [3.1.2 Separated Embeddings](#312-separated-embeddings)
    - [3.2 Long Short-Term Memory (LSTM)](#32-long-short-term-memory-lstm)
 4. [Pre-trained Embeddings](#4-pre-trained-embeddings)
-5. [Extras](#5-extras)
-6. [Summary](#6-summary)
-6. [Tables](#7-tables)
-
+5. [Summary](#5-summary)
+6. [Tables](#6-tables)
 
 ## 1. Introduction
 The objective of this project is to compare the usage of polysemous words in different sentences and determine if they are used in the same context or not. To tackle this problem, various experiments were conducted involving different preprocessing techniques, network architectures, and pre-trained embeddings, all of which will be discussed in the following sections.
@@ -33,27 +31,20 @@ Lemmatization is employed as a practical approach to address the generalization 
 Common stop words like "the," "is," and "and" are removed from the dataset to focus on words making a significant difference in generalization.
 
 ### 2.3 Word Frequencies
-Word frequencies were used to identify unique (lower frequency) words. Two common methods were explored: removal of these words and labeling them as unknown. The choice between these methods depended on experimentation, with the former predominantly used.
-
-### 2.3 Word Frequencies
-Word frequencies are used to identify unique words. Two common methods are explored: removal of these words and labeling them as unknown (<UNK>). 
+Word frequencies are used to identify unique words. Two common methods are explored: removal of these words and labeling them as unknown (&lt;UNK&gt;). 
 
 ### 2.4 Keywords Tokenization
 Different keyword tokenization methods ("None," "Lemma," "Pos," "Flag") are employed to emphasize keywords and reduce complexity, independently of dataset lemmatization.
 
 ### 2.5 Number Tokenization
-To handle the variety of numbers in sentences, separate tokenization techniques ("None," "Discard," "Flag") are used to either keep, remove, or flag them as "<NUMBER>.".
-
-## 3. Model Architectures
-### 3.1 Multilayer Perceptron (MLP)
-In this project, MLP processed the output of the embedding layer. A word-embedding aggregation layer was introduced to lower dimensionality and extract new features for smoother training.
+To handle the variety of numbers in sentences, separate tokenization techniques ("None," "Discard," "Flag") are used to either keep, remove, or flag them as (&lt;NUM&gt;).
 
 ## 3. Model Architectures
 ### 3.1 Multilayer Perceptron (MLP)
 An additional word-embedding aggregation layer is introduced to reduce dimensionality and extract new features, contributing to smoother training. Subsequently, the output is passed to a Multilayer Perceptron (MLP).
 
 #### 3.1.1 Mixed Embeddings
-An experiment involving mixed embeddings is conducted, where all word embeddings from two sentences are combined into a single vector. However, due to substantial information loss, this approach achieves only limited accuracy, approximately 56%.
+An experiment involving mixed embeddings is conducted, where all word embeddings from two sentences are combined into a single "mean" vector. However, due to substantial information loss, this approach achieves only limited accuracy, approximately 56%.
 
 #### 3.1.2 Separated Embeddings
 Following the mixed embeddings' failure, separate mean vectors for each sentence are computed, considering individual sentence lengths to prevent information loss. Four methods ("separated" to use both vectors, "subtract" to have a single vector, and both are also combined with "weighted" to highlight the keyword) are developed to combine these vectors, resulting in higher accuracy scores (around 68%) (see Table 2).
@@ -64,43 +55,36 @@ LSTMs, designed for sequential data, are also employed for experimenting further
 ## 4. Pre-trained Embeddings
 Two pre-trained embeddings, GLOVE and Word2Vec, are considered. GLOVE, favored for its various embedding dimensions, leads to quicker experiments. Word2Vec is utilized in the project's final stages to evaluate its impact on the best-performing models (See Table 3).
 
-
-## 5. Extras
-- Utilization of pre-trained embeddings
-- Grid search for hyperparameter tuning
-- Various preprocessing techniques
-- Comparative results presented in plots and tables
-
-## 6. Summary
+## 5. Summary
 In conclusion, this project offers insights into the complexities of word-in-context disambiguation. It demonstrates the critical role of preprocessing techniques, the significance of choosing appropriate tokenization methods, and the impact of neural network architecture selection on model performance. Moreover, the exploration of pre-trained embeddings enriches the understanding of their influence on the task at hand.
 
-## 7. Tables
+## 6. Tables
 
-## Table 1: Preprocessing Techniques and Validation Accuracy
+### Table 1: Preprocessing Techniques and Validation Accuracy
 
 | Type        | Accuracy   | Best Epoch # | Vocab   |
 |-------------|------------|--------------|---------|
 | **KEYWORD** |            |              |         |
 | None        | 61.31      | 44           | 27,008  |
-| Flag        | 60.81      | 50           | 25,247  |
+| Flag (&lt;KEY&gt;)        | 60.81      | 50           | 25,247  |
 | Lemma   | **61.41**  | 50       | 26,073 |
 | Pos         | 61.11      | 50           | 25,250  |
 | **NUMBER**  |            |              |         |
 | None        | 61.31      | 44           | 27,008  |
-| Flag        | 61.51      | 48           | 26,493  |
+| Flag (&lt;NUM&gt;)       | 61.51      | 48           | 26,493  |
 | Discard     | **63.00**| 50       | 26,492 |
 | **STOP WORDS** |        |              |         |
 | None        | 61.31      | 44           | 27,008  |
 | Discard     | **66.67**| 49       | 26,961 |
-| **FREQUENCY (>1)** |   |              |         |
+| **FREQUENCY (<=1)** |   |              |         |
 | None        | 61.31      | 44           | 27,008  |
-| **Low Freq- Del** | **61.41** | 50    | 18,518 |
-| Low Freq - Unk | **61.61** | 46        | 18,519  |
+| Discard | 61.41 | 50    | 18,518 |
+| Flag (&lt;UNK&gt;) | **61.61** | 46        | 18,519  |
 | **DATASET** |           |              |         |
 | None        | 61.31      | 44           | 27,008  |
 | Lemma       | **62.40**  | 50           | 23,758  |
 
-## Table 2: Validation Accuracies for Different Methods in Embedding Aggregation.
+### Table 2: Validation Accuracies for Different Methods in Embedding Aggregation
 
 | Type       | Accuracy | Epoch |
 |------------|----------|-------|
@@ -109,7 +93,7 @@ In conclusion, this project offers insights into the complexities of word-in-con
 | Subtract   | 68.35    | 77    |
 | Weighted Subtract   | 67.16    | 37    |
 
-## Table 3: The Effectiveness of Different Pre-trained Word Embeddings
+### Table 3: The Effectiveness of Different Pre-trained Word Embeddings
 
 | Embedding         | Accuracy (%) | Best Epoch | Embedding Dimension |
 |-------------------|--------------|------------|---------------------|
