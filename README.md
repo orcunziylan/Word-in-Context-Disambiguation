@@ -1,4 +1,4 @@
-# Polysemous Word Disambiguation - 2021
+# Polysemous Word Disambiguation
 
 ## Table of Contents
 
@@ -60,31 +60,27 @@ In conclusion, this project offers insights into the complexities of word-in-con
 
 ## 6. Tables
 
-### Table 1: Preprocessing Techniques and Validation Accuracy
+### Table 1: Preprocessing Techniques and Validation Accuracy / MLP
 
-| Type        | Accuracy   | Best Epoch # | Vocab   |
-|-------------|------------|--------------|---------|
-| **KEYWORD** |            |              |         |
-| None        | 61.31      | 44           | 27,008  |
-| Flag (&lt;KEY&gt;)        | 60.81      | 50           | 25,247  |
-| Lemma   | **61.41**  | 50       | 26,073 |
-| Pos         | 61.11      | 50           | 25,250  |
-| **NUMBER**  |            |              |         |
-| None        | 61.31      | 44           | 27,008  |
-| Flag (&lt;NUM&gt;)       | 61.51      | 48           | 26,493  |
-| Discard     | **63.00**| 50       | 26,492 |
-| **STOP WORDS** |        |              |         |
-| None        | 61.31      | 44           | 27,008  |
-| Discard     | **66.67**| 49       | 26,961 |
-| **FREQUENCY (<=1)** |   |              |         |
-| None        | 61.31      | 44           | 27,008  |
-| Discard | 61.41 | 50    | 18,518 |
-| Flag (&lt;UNK&gt;) | **61.61** | 46        | 18,519  |
-| **DATASET** |           |              |         |
-| None        | 61.31      | 44           | 27,008  |
-| Lemma       | **62.40**  | 50           | 23,758  |
+| Preprocessing Type | Option          | Accuracy (%) | Epochs | Vocabulary Size |
+|--------------------|-----------------|--------------|--------|------------------|
+| **Keyword Tokenization** | None            | 61.31       | 44     | 27,008          |
+|                    | Flag            | 60.81       | 50     | 25,247          |
+|                    | Lemma           | 61.41       | 50     | 26,073          |
+|                    | Pos             | 61.11       | 50     | 25,250          |
+| **Number Tokenization**  | None            | 61.31       | 44     | 27,008          |
+|                    | Flag            | 61.51       | 48     | 26,493          |
+|                    | Discard         | 63.00       | 50     | 26,492          |
+| **Stop Words**     | None            | 61.31       | 44     | 27,008          |
+|                    | Discard         | 66.67       | 49     | 26,961          |
+| **Low-Frequency Words** | None         | 61.31       | 44     | 27,008          |
+|                    | Low Freq - Del  | 61.41       | 50     | 18,518          |
+|                    | Low Freq - Unk  | 61.61       | 46     | 18,519          |
+| **Dataset Lemmatization** | None     | 61.31       | 44     | 27,008          |
+|                    | Lemma           | 62.40       | 50     | 23,758          |
 
-### Table 2: Validation Accuracies for Different Methods in Embedding Aggregation
+
+### Table 2: Validation Accuracies for Different Methods in Embedding Aggregation / MLP
 
 | Type       | Accuracy | Epoch |
 |------------|----------|-------|
